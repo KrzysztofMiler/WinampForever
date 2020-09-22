@@ -39,9 +39,11 @@ namespace muzyka
             {
                 mediaPlayer.Open(new Uri(paths.First()));
                 mediaPlayer.Play();
+                NowPlaying.Text = files.First();
                 paths.RemoveAt(0);//1 eleem
                 files.RemoveAt(0);
                 listBoxSongsUpdate();//refresh kolejki
+                
             }
             else
             {
@@ -80,8 +82,7 @@ namespace muzyka
                 paths.Add(fileDialog.FileName);
 
                 listBoxSongsUpdate();
-
-                
+                              
 
                 //mediaPlayer.Open(new Uri(filename));//możliwe że nadmiarowe
 
