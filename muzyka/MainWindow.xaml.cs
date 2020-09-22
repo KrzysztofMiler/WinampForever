@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,43 @@ namespace muzyka
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        MediaPlayer mediaPlayer = new MediaPlayer();
+        string filename;
+     
+
+        private void BT_click_Play(object sender, RoutedEventArgs e)
+        {
+            mediaPlayer.Play();
+        }        
+
+        private void BT_click_Pause(object sender, RoutedEventArgs e)
+        {
+            mediaPlayer.Pause();
+        }
+
+        private void BT_click_Stop(object sender, RoutedEventArgs e)
+        {
+            mediaPlayer.Stop();
+        }
+
+        private void BT_Cilck_Open(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog fileDialog = new OpenFileDialog//otwieram okno dialogowe z win do pobierania
+            {
+                Multiselect = false,
+                DefaultExt = ".mp3"
+
+            };
+            bool? dialogOK = fileDialog.ShowDialog();
+            if (dialogOK == true)
+            {
+                filename = fileDialog.FileName;
+                TBFileName.Text = fileDialog.SafeFileName;
+                mediaPlayer.Open(new Uri(filename));
+
+            }
         }
     }
 }
