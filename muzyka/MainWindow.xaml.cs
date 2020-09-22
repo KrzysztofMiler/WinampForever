@@ -35,6 +35,12 @@ namespace muzyka
 
         private void BT_click_Play(object sender, RoutedEventArgs e)
         {
+            play();
+                      
+        }
+
+        private void play()
+        {
             if (paths.Count != 0)
             {
                 mediaPlayer.Open(new Uri(paths.First()));
@@ -43,14 +49,18 @@ namespace muzyka
                 paths.RemoveAt(0);//1 eleem
                 files.RemoveAt(0);
                 listBoxSongsUpdate();//refresh kolejki
-                
+                mediaPlayer.MediaEnded += MediaPlayer_MediaEnded;
             }
             else
             {
                 mediaPlayer.Play();//de facto jest aby nie wywaliło program
             }
-                      
-        }        
+        }
+
+        private void MediaPlayer_MediaEnded(object sender, EventArgs e)
+        {
+            play();
+        }
 
         private void BT_click_Pause(object sender, RoutedEventArgs e)
         {
@@ -66,7 +76,7 @@ namespace muzyka
         {
             OpenFileDialog fileDialog = new OpenFileDialog//otwieram okno dialogowe z win do pobierania
             {
-                Multiselect = false,
+                Multiselect = true,
                 DefaultExt = ".mp3"
 
             };           
@@ -97,6 +107,31 @@ namespace muzyka
                     listBoxSongs.Items.Add(files[i]);
 
                 }
+        }
+
+        private void BT_click_Shuffle(object sender, RoutedEventArgs e)
+        {//BUG POTRAAFI USÓWAĆ RODZAJ PIOSENKI
+            Random random = new Random();
+
+            List<String> filesInst = files.ToList();
+            List<String> pathInst = paths.ToList();
+             
+
+            files.Clear();
+            paths.Clear();
+
+            for (int i = 0; i < filesInst.Capacity; i++)
+            {
+                int ctn = random.Next(0, filesInst.Count-1);//tutaj potrafi usunąc
+                
+                                
+                files.Add(filesInst.ElementAt(ctn));
+                paths.Add(pathInst.ElementAt(ctn));
+
+                filesInst.RemoveAt(ctn);
+                pathInst.RemoveAt(ctn);
+            }
+            listBoxSongsUpdate();
         }
     }
 }
