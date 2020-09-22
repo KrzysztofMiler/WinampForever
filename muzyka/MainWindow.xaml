@@ -16,7 +16,7 @@
         </StackPanel>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom"
                     HorizontalAlignment="Center">
-            <Button FontSize="16" Content="Play" Width="100" Margin="10" Click="BT_click_Play"/>
+            <Button FontSize="16" Content="Play/Skip" Width="100" Margin="10" Click="BT_click_Play"/>
             <Button FontSize="16" Content="Pause" Width="100" Margin="10" Click="BT_click_Pause"/>
             <Button FontSize="16" Content="Stop" Width="100" Margin="10" Click="BT_click_Stop"/>
             

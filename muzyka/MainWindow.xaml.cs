@@ -35,7 +35,19 @@ namespace muzyka
 
         private void BT_click_Play(object sender, RoutedEventArgs e)
         {
-            mediaPlayer.Play();            
+            if (paths.Count != 0)
+            {
+                mediaPlayer.Open(new Uri(paths.First()));
+                mediaPlayer.Play();
+                paths.RemoveAt(0);//1 eleem
+                files.RemoveAt(0);
+                listBoxSongsUpdate();//refresh kolejki
+            }
+            else
+            {
+                mediaPlayer.Play();//de facto jest aby nie wywaliło program
+            }
+                      
         }        
 
         private void BT_click_Pause(object sender, RoutedEventArgs e)
@@ -67,17 +79,23 @@ namespace muzyka
                 files.Add(fileDialog.SafeFileName);
                 paths.Add(fileDialog.FileName);
 
-                listBoxSongs.Items.Clear();//aby nie dublowało itp
+                listBoxSongsUpdate();
 
-                for (int i = 0; i < files.Count; i++)
+                
+
+                //mediaPlayer.Open(new Uri(filename));//możliwe że nadmiarowe
+
+            }
+        }
+
+        private void listBoxSongsUpdate() { 
+        listBoxSongs.Items.Clear();//aby nie dublowało itp
+
+                for (int i = 0; i<files.Count; i++)
                 {
                     listBoxSongs.Items.Add(files[i]);
 
                 }
-
-                mediaPlayer.Open(new Uri(filename));
-
-            }
         }
     }
 }
