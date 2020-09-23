@@ -110,7 +110,7 @@ namespace muzyka
         }
 
         private void BT_click_Shuffle(object sender, RoutedEventArgs e)
-        {//BUG POTRAAFI USÓWAĆ RODZAJ PIOSENKI
+        {
             Random random = new Random();
 
             List<String> filesInst = files.ToList();
@@ -122,7 +122,7 @@ namespace muzyka
 
             for (int i = 0; i < filesInst.Capacity; i++)
             {
-                int ctn = random.Next(0, filesInst.Count-1);//tutaj potrafi usunąc
+                int ctn = random.Next(0, filesInst.Count-1);
                 
                                 
                 files.Add(filesInst.ElementAt(ctn));
@@ -132,6 +132,12 @@ namespace muzyka
                 pathInst.RemoveAt(ctn);
             }
             listBoxSongsUpdate();
+        }
+
+        private void Volume_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            mediaPlayer.Volume = volume.Value;
+            
         }
     }
 }
